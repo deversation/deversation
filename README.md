@@ -1,4 +1,5 @@
-# Deversation
+# Project Name: Deversation
+- A terminal chat room for devs to talk about coding, share knowledge and educational sources. 
 
 ### Group:
 Anthony Williams
