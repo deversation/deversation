@@ -37,7 +37,7 @@ Marie Marcos
 
 ### How can you best utilize these strengths in the execution of your project?
 - Collaborate
-- 
+
 ### In which professional competencies do you each want to develop greater strength?
 - Marie - developer tools, algorithms
 - Tony - functions, algorithms and git flow. 
