@@ -2,10 +2,10 @@
 - A terminal chat room for devs to talk about coding, share knowledge and educational sources. 
 
 ### Group:
-Anthony Williams
-Tony Regalado
-Wondwosen
-Marie Marcos
+- Anthony Williams
+- Tony Regalado
+- Wondwosen Tsige
+- Marie Marcos
 
 ## Brainstorm:
 - Pomodoro Timer/ notification app.
@@ -31,7 +31,7 @@ Marie Marcos
 ### Describe at least:
 
 #### What are the key strengths of each person on the team?
- - Marie - google fu, active listener
+- Marie - google fu, active listener
 - Tony - team player, good listener, problem solver
 - Wondwosen - curiosity, attention to details
 - Anthony - 
