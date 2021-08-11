@@ -15,5 +15,9 @@
 <!-- Provide a detailed description of the application design. What technologies (languages, libraries, etc) you're using, and any other relevant design information. -->
 
 ## Change Log
-<!-- Use this are to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
 
+## Reference
+
+We were refering the following link to see how we could proceed with creating multilpe chat rooms
+
+[reference link](https://github.com/Eisah-Jones/MultiRoom-Chat/blob/master/Multi-Room%20Chat/Multi_Chat_Server.py)
