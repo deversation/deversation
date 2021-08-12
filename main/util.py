@@ -1,5 +1,6 @@
 import socket, pdb
 import banner
+from textblob import TextBlob
 from banner import Ascii_Banner
 
 
@@ -52,7 +53,7 @@ class Hall:
             + b'\n'
 
         # print(f'{user.name} says: {msg}')
-        print(user.name + " says: " + msg)
+        print(user.name + " speaks ")
         if "name:" in msg:
             name = msg.split()[1]
             user.name = name
