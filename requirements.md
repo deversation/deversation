@@ -29,6 +29,7 @@ Why should we care about your product?
 ## Minimum Viable Product vs
 
 What will your MVP functionality be?
+
 - Landing page with app information and github links.
 - Collect userName.
 - Allow users to choose between different servers/chat rooms.
