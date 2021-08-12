@@ -89,3 +89,10 @@ update domain model with more MVPs - when user send request how it that request 
 make sure all software depends are in there
 think about testing
 add more strectch goals
+
+## Assets
+
+![Trello](https://codefellows.slack.com/archives/C02A1C85VNV/p1628568577008100)
+![Wireframe](assets/wireframe.PNG)
+![Flowchart](assets/Flowchart.jpg)
+![Domain Model](assets/domain_model.jpg)
