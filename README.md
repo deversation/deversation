@@ -167,3 +167,13 @@
 ![Wireframe](assets/wireframe.PNG)
 ![Flowchart](assets/Flowchart.jpg)
 ![Domain Model](assets/domain_model.jpg)
+
+## Collab & Credits
+
+![NeuralNine](https://www.youtube.com/watch?v=9GJ6XeB-vMg)
+![xysun](https://github.com/xysun/pychat) #used as a starter reference
+![Dev.to](https://dev.to/kalebu/how-to-make-cli-chat-application-in-python-58fb)
+![Termcolor & Pyfiglet](https://towardsdatascience.com/prettify-your-terminal-text-with-termcolor-and-pyfiglet-880de83fda6b)
+![Stack Abuse](https://stackabuse.com/spelling-correction-in-python-with-textblob/)
+![Real Python](https://realpython.com/python-speech-recognition/)
+![Geeks for Geeks](https://www.geeksforgeeks.org/python-exit-commands-quit-exit-sys-exit-and-os-_exit/)

@@ -1,24 +1,27 @@
-import SpeechRecognition as speech_recognition
-# import pyaudio
-# import pyflac
+import speech_recognition as sr
+import pyaudio
+# # import pyflac
 
 
 
-recognizer = speech_recognition.Recognizer()
+recognizer = sr.Recognizer()
 
 
 def speech_to_text():
     while True:
         try:
-            with speech_recognition.Microphone() as mic:
+            with sr.Microphone() as mic:
                 recognizer.adjust_for_ambient_noise(mic, duration = 0.2)
                 audio = recognizer.listen(mic)
                 text = recognizer.recognize_google(audio)
                 text = text.lower()
                 print(f"Recognized {text}")
-        except speech_recognition.UknownValueError():
-            recognizer = speech_recognition.Recognizer()
+        except sr.UknownValueError():
+            recognizer = sr.Recognizer()
             continue
 
 
 speech_to_text()
+
+
+
