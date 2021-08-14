@@ -8,6 +8,7 @@ authors = ["Edward Regalado <tregalado30@gmail.com>"]
 python = "^3.9"
 termcolor = "^1.1.0"
 pyfiglet = "^0.8.post1"
+SpeechRecognition = "^3.8.1"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
