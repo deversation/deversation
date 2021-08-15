@@ -33,17 +33,25 @@ class Text():
     def __init__(self, msg):
         self.msg = msg
         
-    def green_text(self):
-        pass
+    def green_text(msg):
+        x = colored(msg, 'green')
+        x = bytes(x, encoding='utf-8')
+        return x
+
+    def red_text(msg):
+        x = colored(msg, 'red')
+        x = bytes(x, encoding='utf-8')
+        return x
     
-    def red_text(self):
-        pass
+    def yellow_text(msg):
+        x = colored(msg, 'yellow')
+        x = bytes(x, encoding='utf-8')
+        return x
     
-    def yellow_text(self):
-        pass
-    
-    def blue_text(self):
-        pass
+    def blue_text(msg):
+        x = colored(msg, 'blue')
+        x = bytes(x, encoding='utf-8')
+        return x
     
     
 # print(type(Ascii_Banner("hi")))
