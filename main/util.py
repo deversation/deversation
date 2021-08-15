@@ -1,7 +1,7 @@
 import socket, pdb
 from pyfiglet import Figlet
-from termcolor import colored
-# from banner import Ascii_Banner
+from termcolor import colored, cprint 
+from banner import Ascii_Banner, Text
 
 MAX_CLIENTS = 30
 PORT = 22222
@@ -26,10 +26,11 @@ class Hall:
 
     # welcomes new users and prints string(s) in sendall()
     def welcome_new(self, new_user):
-        new_user.socket.sendall(b'Welcome to Deversation!.\nPlease tell us your name:\n')
+        new_user.socket.sendall(b'This chat space was created to encourage learning, communication, and collaboration between developers.\n\nPlease tell us your name:\n')
         # new_user.socket.sendall()
         
     def create_default_room(self, room_name): # create room instances when first users signs on
+        
          pass
     
     
@@ -93,11 +94,15 @@ class Hall:
         # instructions variable that gets printed when needed via sendall(instructions)
         # the b before the string converts the string to bytes, which is what is need when sending data via sockets. 
         instructions = b'Instructions:\n'\
-            + b'[/list] to list all rooms\n'\
+            + b'[/join python] to enter python chat\n'\
+            + b'[/join challenges] to enter code challenge chat\n'\
+            + b'[/join quiz] to enter quiz chat\n'\
+            + b'[/join general] to enter general chat\n'\
             + b'[/join room_name] to join/create/switch to a room\n' \
+            + b'[/list] to list all active rooms\n'\
             + b'[/manual] to show instructions\n' \
             + b'[/quit] to quit\n' \
-            + b'Otherwise start typing and enjoy!' \
+            + b'Please choose a command.' \
             + b'\n'
              
        
@@ -144,7 +149,27 @@ class Hall:
                     self.room_user_map[user.name] = room_name
             else:
                 user.socket.sendall(instructions) # prints instructions to client terminal
-                
+
+
+        elif "python" in msg:
+        #     same_room = False
+        #     # room_name = msg[2::]
+        #     # room_name = room_name.upper() 
+            # room_name = 'PYTHON'
+            # print(f'Room Name: {room_name}') # prints to server terminal
+        #     # link = cprint(b'https://www.python.org/', 'blue')
+            # py_room = b"welcome to python\n"
+            # user.socket.sendall(py_room)
+            
+            x = Ascii_Banner.green_banner('python')
+            user.socket.sendall(x)
+            z = Text.blue_text('https://www.python.org/\n')
+            user.socket.sendall(z)
+        #     new_room = Room(room_name)
+        #     self.rooms[room_name] = new_room
+        #     self.rooms[room_name].users.append(user)
+        #     self.rooms[room_name].welcome_new(user)
+        #     self.room_user_map[user.name] = room_name
 
         elif "/list" in msg:
             self.list_rooms(user) #calls list room function
@@ -176,11 +201,9 @@ class Hall:
         if player.name in self.room_user_map:
             self.rooms[self.room_user_map[player.name]].remove_player(player)
             del self.room_user_map[player.name]
-        print("Player: " + player.name + " has left\n")
+        print("User: " + player.name + " has left\n")
         
         
-
-    
 class Room:
     def __init__(self, room):
         self.users = [] # a list of sockets
@@ -209,3 +232,24 @@ class User:
 
     def fileno(self):
         return self.socket.fileno()
+
+
+# class MultiChatServer():
+    
+#     def __init__(self, maxClients, serverPort):
+#         self._maxClients = maxClients
+#         self._clients = []
+        
+#         self.ROOM1 = Room('1', self)
+#         self.ROOM2 = Room('2', self)
+#         self.ROOM3 = Room('3', self)
+#         self.ROOM4 = Room('4', self)
+        
+#         self._serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#         self._serverPort = serverPort
+    
+#     def print_room_clients(self):
+#         for r in [self.ROOM1, self.ROOM2, self.ROOM3, self.ROOM4]:
+#             print (r.get_name(), r._occupants)
+    
+        
