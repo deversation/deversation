@@ -1,13 +1,29 @@
-from deversation import __version__
+import pytest
+from main.util import Hall, Room, User
+from main.banner import Ascii_Banner, Text
 
 
-def test_version():
-    assert __version__ == '0.1.0'
 
 # Possible test cases forthe util.py module
 
+def test_can_successfully_create_to_a_hall():
+   hall = Hall()
+   assert hall
+
+def test_can_successfully_print_a_message_banner():
+    msg = "hello"
+    banner = Ascii_Banner(msg)
+    assert banner
+
+def test_can_successfully_print_text():
+    msg = "In a good progress"
+    text = Text(msg)
+    assert text
+
 def test_can_successfully_connected_to_a_chat_room_server():
-   pass
+   name = "test room"
+   room = Room(name)
+   assert room.room == "test room"
 
 def test_can_successfully_print_chat_room_instructions():
     pass
@@ -20,7 +36,13 @@ def test_can_successfully_list_default_rooms():
 
 def test_can_successfully_create_a_new_room():
     pass
-    
+
+def test_user_can_successfully_create_a_new_user():
+    user = "new"
+    name = User(user)
+    assert name.name == "new"
+
+
 def test_user_can_successfully_join_a_chat_room():
     pass
 
