@@ -1,7 +1,7 @@
 import socket, pdb
 from pyfiglet import Figlet
-from termcolor import colored, cprint 
-from banner import Ascii_Banner, Text
+from termcolor import colored
+from banner import Ascii_Banner, Text 
 
 MAX_CLIENTS = 30
 PORT = 22222
@@ -26,7 +26,7 @@ class Hall:
 
     # welcomes new users and prints string(s) in sendall()
     def welcome_new(self, new_user):
-        new_user.socket.sendall(b'This chat space was created to encourage learning, communication, and collaboration between developers.\n\nPlease tell us your name:\n')
+        new_user.socket.sendall(b'This chat space was created to encourage learning, communication, and collaboration between developers.\n\nPlease enter a user name:\n')
         # new_user.socket.sendall()
         
     def create_default_room(self, room_name): # create room instances when first users signs on
@@ -37,8 +37,8 @@ class Hall:
     def list_rooms(self, user):
         
         if len(self.rooms) == 0:
-            msg = 'Oops, no active rooms currently. Create your own!\n' \
-                + 'Use [/join room_name] to create a room.\n'
+            msg = '\nOops, no active rooms currently. Try creating your own:\n' \
+                + 'Type [/join room_name] to create a room.\n'
             user.socket.sendall(msg.encode())
         else:
             msg = 'Listing current rooms...\n'
@@ -46,7 +46,38 @@ class Hall:
                 msg += room + ": " + str(len(self.rooms[room].users)) + " user(s)\n"
             user.socket.sendall(msg.encode())
         
-            
+    def python_room(self, user):
+        x = Ascii_Banner.green_banner('PYTHON CHAT')
+        user.socket.sendall(x)
+        z = Text.blue_text('https://www.python.org/\n')
+        user.socket.sendall(z)
+
+    def challenge_room(self, user):
+        x = Ascii_Banner.red_banner('CHALLENGE ACCEPTED!')
+        user.socket.sendall(x)
+        z = Text.blue_text('https://miro.com/\n')
+        user.socket.sendall(z)
+
+    def general_room(self, user):
+        x = Ascii_Banner.yellow_banner('GENERAL CHAT')
+        user.socket.sendall(x)
+        z = Text.blue_text('https://miro.com/\n')
+        user.socket.sendall(z)
+
+# refactor to be single function of room creation and default room
+# or separate name creation overall function from default room specifics
+    # def created_room(self, user, room_name):
+    #     exclude = ['general', 'python', 'challenge']
+    #     for room_name in exclude:
+    #         if room_name not in exclude:
+    #             x = Ascii_Banner.cyan_banner(room_name)
+    #             user.socket.sendall(x)
+    #             z = Text.blue_text('https://miro.com/\n')
+    #             user.socket.sendall(z)
+    #         else: 
+    #             continue
+                # pass
+
     # def list_users(self, user):
     #     users = self.room_user_map
     #     msg = str(users.keys())
@@ -72,11 +103,8 @@ class Hall:
             
             # print(self.rooms.users)
         # user.socket.sendall(x.encode())
-        
-        
     
     def handle_msg(self, user, msg):
-        
         
         def green_banner(msg):
             f = Figlet(font='standard')
@@ -90,28 +118,28 @@ class Hall:
         def instructions(user):
             # create a function to loop and print instructions to users instead of code below?
             pass
-        
+
         # instructions variable that gets printed when needed via sendall(instructions)
         # the b before the string converts the string to bytes, which is what is need when sending data via sockets. 
         instructions = b'Instructions:\n'\
             + b'[/join python] to enter python chat\n'\
-            + b'[/join challenges] to enter code challenge chat\n'\
-            + b'[/join quiz] to enter quiz chat\n'\
+            + b'[/join challenge] to test your knowledge\n'\
             + b'[/join general] to enter general chat\n'\
             + b'[/join room_name] to join/create/switch to a room\n' \
             + b'[/list] to list all active rooms\n'\
-            + b'[/manual] to show instructions\n' \
+            + b'[/help] to show instructions\n' \
             + b'[/quit] to quit\n' \
-            + b'Please choose a command.' \
-            + b'\n'
+            + b'\nPlease enter a command:' \
+            + b'\n\n'
+            
              
-       
-        print(user.name + " says: " + msg) #users message that only gets printed to server terminal
+        #users message that only gets printed to server terminal
+        # print(user.name + " says: " + msg) 
         
-        #checks for "name:" in msg. This happens when the welcome_new() function gets called for new users.
+        #checks for "name:" in msg. This happens when the welcome_new() function gets called for new users. #welcome message to new users
         if "name:" in msg:
-            user.socket.sendall(green_banner('Welcome!\n To\n Deversation\n')) #welcome message to new users
-        
+            user.socket.sendall(green_banner('Welcome!\n To\n Deversation\n')) 
+            # separates users name from prefix of 'name: '
             name = msg.split()[1]
             user.name = name
             print("New connection from:", user.name) #prints to server terminal
@@ -120,19 +148,18 @@ class Hall:
 
         #checks for "/join" in message
         elif "/join" in msg:
-            
+
             # Checking if user is already in the room when swtiching
             # Creates a new room instance 
             same_room = False
             
             if len(msg.split()) >= 2: # checking if the len of msg is >= 2. split() separates based on white space & creates list of strings/words. 
-                
                 #room_name = msg.split()[1] #grabbing the string at index 1 and assigning to room_name
                 room_name = msg.split()[1:] #splitting after the first index. This removes the /join command
                 room_name = '-'.join(room_name).upper() # joins and adds '-' between our new room name if more than 1 word for room_name. 'dev talk' equals 'DEV-TALK' 
                 print(f'Room Name: {room_name}') # prints to server terminal
-                
-                # Switches, creates and checks is users is already in current room.
+                # self.created_room(user, room_name)
+                # Switches, creates and checks if user is already in current room.
                 if user.name in self.room_user_map: # checks 
                     if self.room_user_map[user.name] == room_name: 
                         user.socket.sendall(b'You are already in room: ' + room_name.encode())
@@ -141,6 +168,15 @@ class Hall:
                         old_room = self.room_user_map[user.name]
                         self.rooms[old_room].remove_player(user)
                 if not same_room:
+                    if "python" in msg:
+                        self.python_room(user)
+                    if "challenge" in msg:
+                        self.challenge_room(user)
+                    if "general" in msg:
+                        self.general_room(user)
+                    # else:
+                    #     x = Ascii_Banner.cyan_banner(room_name)
+                    #     user.socket.sendall(x)
                     if not room_name in self.rooms: # new room:
                         new_room = Room(room_name)
                         self.rooms[room_name] = new_room
@@ -151,26 +187,6 @@ class Hall:
                 user.socket.sendall(instructions) # prints instructions to client terminal
 
 
-        elif "python" in msg:
-        #     same_room = False
-        #     # room_name = msg[2::]
-        #     # room_name = room_name.upper() 
-            # room_name = 'PYTHON'
-            # print(f'Room Name: {room_name}') # prints to server terminal
-        #     # link = cprint(b'https://www.python.org/', 'blue')
-            # py_room = b"welcome to python\n"
-            # user.socket.sendall(py_room)
-            
-            x = Ascii_Banner.green_banner('python')
-            user.socket.sendall(x)
-            z = Text.blue_text('https://www.python.org/\n')
-            user.socket.sendall(z)
-        #     new_room = Room(room_name)
-        #     self.rooms[room_name] = new_room
-        #     self.rooms[room_name].users.append(user)
-        #     self.rooms[room_name].welcome_new(user)
-        #     self.room_user_map[user.name] = room_name
-
         elif "/list" in msg:
             self.list_rooms(user) #calls list room function
             
@@ -179,7 +195,7 @@ class Hall:
         #     self.list_users(user) #calls list_users function
                 
 
-        elif "/manual" in msg:
+        elif "/help" in msg:
             user.socket.sendall(instructions) #prints instructions to client terminal
 
         
@@ -192,11 +208,17 @@ class Hall:
             if user.name in self.room_user_map:
                 self.rooms[self.room_user_map[user.name]].broadcast(user, msg.encode())
             else:
-                msg = 'You are currently not in any room! \n' \
-                    + 'Use [<list>] to see available rooms! \n' \
-                    + 'Use [<join> room_name] to join a room! \n'
+                # msg = '\nYou are currently not in any room! \n' \
+                #     + 'Use [<list>] to see available rooms! \n' \
+                #     + 'Use [<join> room_name] to join a room! \n'
+                # user.socket.sendall(msg.encode())
+                z = Text.red_text('\nYou are currently not in any room!')
+                user.socket.sendall(z)
+                msg = '\nTry a command:\n' \
+                    + 'Type [/list] to see available rooms \n' \
+                    + 'Type [/join room_name] to join a room\n'
                 user.socket.sendall(msg.encode())
-    
+
     def remove_player(self, player): # removes user when they /quit. Prints to server terminal.
         if player.name in self.room_user_map:
             self.rooms[self.room_user_map[player.name]].remove_player(player)
@@ -232,24 +254,4 @@ class User:
 
     def fileno(self):
         return self.socket.fileno()
-
-
-# class MultiChatServer():
-    
-#     def __init__(self, maxClients, serverPort):
-#         self._maxClients = maxClients
-#         self._clients = []
-        
-#         self.ROOM1 = Room('1', self)
-#         self.ROOM2 = Room('2', self)
-#         self.ROOM3 = Room('3', self)
-#         self.ROOM4 = Room('4', self)
-        
-#         self._serverSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-#         self._serverPort = serverPort
-    
-#     def print_room_clients(self):
-#         for r in [self.ROOM1, self.ROOM2, self.ROOM3, self.ROOM4]:
-#             print (r.get_name(), r._occupants)
-    
         
