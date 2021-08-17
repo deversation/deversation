@@ -1,7 +1,12 @@
 import socket, pdb
 from pyfiglet import Figlet
 from termcolor import colored
-from banner import Ascii_Banner, Text 
+try:
+# test code:
+    from main.banner import Ascii_Banner, Text 
+except:
+# production code:
+    from banner import Ascii_Banner, Text 
 
 MAX_CLIENTS = 30
 PORT = 22222
@@ -230,7 +235,8 @@ class Room:
 
 class User:
     def __init__(self, socket, name = "new"):
-        socket.setblocking(0)
+        # setblocking commented out for testing
+        # socket.setblocking(0)
         self.socket = socket
         self.name = name
 
