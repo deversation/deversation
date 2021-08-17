@@ -20,15 +20,32 @@ class Ascii_Banner:
     def banner(self):
         f = Figlet(font='standard')
         print(f)
-        
-    def red_banner(self):
+
+    def red_banner(msg):
         f = Figlet(font='standard')
-        print(colored(f.renderText(self.msg), 'red'))
+        x = colored(f.renderText(msg), 'red')
+        x = bytes(x, encoding='utf-8')
+        return x
     
-    def yellow_banner(self):
+    def yellow_banner(msg):
         f = Figlet(font='standard')
-        print(colored(f.renderText(self.msg), 'yellow'))
-        
+        x = colored(f.renderText(msg), 'yellow')
+        x = bytes(x, encoding='utf-8')
+        return x
+
+    def cyan_banner(msg):
+        f = Figlet(font='standard')
+        x = colored(f.renderText(msg), 'cyan')
+        x = bytes(x, encoding='utf-8')
+        return x
+
+# refactor?
+    # def color_banner(msg, color):
+    #     f = Figlet(font='standard')
+    #     x = colored(f.renderText(msg), color)
+    #     x = bytes(x, encoding='utf-8')
+    #     return x
+
 class Text():
     def __init__(self, msg):
         self.msg = msg

@@ -1,5 +1,29 @@
 # Software Requirements
 
+## Brainstorm:
+
+- Pomodoro Timer/ notification app.
+- Pygame
+- Chat room
+- Screen reader
+- Terminal Chat
+- Create a chat room server from within the terminal. Additional features beyond MVP: music, imaging, speech recognition, share
+- Allow coders a new way to communicate within their own terminals.
+- Minimum Viable Product (MVP) definition.
+- One chat room server, two clients, take in username and password. Allow instant conversation.
+- Pomodoro Timer/Notification App
+- Create a timer for use during work or study.
+- Keep users on task and prevent burn-out by reminding them to take breaks at a set interval.
+- Minimum Viable Product (MVP) definition.
+- Allow user to set a time length for work and a time for break, pop up notification when time is up
+
+## Assets
+
+![Trello](https://codefellows.slack.com/archives/C02A1C85VNV/p1628568577008100)
+![Wireframe](assets/wireframe.PNG)
+![Flowchart](assets/Flowchart.jpg)
+![Domain Model](assets/domain_model.jpg)
+
 ## Vision
 
 Minimum Length: 3-5 sentences

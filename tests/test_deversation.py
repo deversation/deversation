@@ -1,7 +1,17 @@
 import pytest
+
 from main.util import Hall, Room, User
 from main.banner import Ascii_Banner, Text
 
+def test_hall():
+    hall = Hall()
+    assert hall
+
+
+def test_banner():
+    msg = 'hello'
+    banner = Ascii_Banner(msg)
+    assert banner
 
 
 # Possible test cases forthe util.py module
@@ -77,3 +87,4 @@ def test_can_successfully_print_a_goodbye_massage_when_user_quits():
 
 def test_can_successfully_print_an_error_massage_when_server_is_down():
     pass
+
