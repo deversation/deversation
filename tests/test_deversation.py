@@ -1,5 +1,16 @@
-from deversation import __version__
+import pytest
+from main.banner import Ascii_Banner, Text 
+from main.util import Hall
 
+def test_hall():
+    hall = Hall()
+    assert hall
+
+
+def test_banner():
+    msg = 'hello'
+    banner = Ascii_Banner(msg)
+    assert banner
 
 def test_version():
     assert __version__ == '0.1.0'
@@ -55,3 +66,4 @@ def test_can_successfully_print_a_goodbye_massage_when_user_quits():
 
 def test_can_successfully_print_an_error_massage_when_server_is_down():
     pass
+
