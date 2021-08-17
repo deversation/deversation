@@ -41,7 +41,7 @@ while True:
                     sys.exit(2)
                 else:
                     sys.stdout.write(msg.decode())
-                    if 'Please tell us your name' in msg.decode():
+                    if 'Please enter a user name:' in msg.decode():
                         msg_prefix = 'name: ' # identifier for name
                     else:
                         # new_func("Welcome")
