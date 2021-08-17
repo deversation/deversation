@@ -7,8 +7,6 @@ MAX_CLIENTS = 30
 PORT = 22222
 QUIT_STRING = '<$quit$>'
 
-
-
 def create_socket(address):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -17,7 +15,6 @@ def create_socket(address):
     s.listen(MAX_CLIENTS)
     print("Now listening at ", address) #prints to server terminal
     return s
-
 
 class Hall:
     def __init__(self):
@@ -32,7 +29,6 @@ class Hall:
     def create_default_room(self, room_name): # create room instances when first users signs on
         
          pass
-    
     
     def list_rooms(self, user):
         
@@ -63,20 +59,6 @@ class Hall:
         user.socket.sendall(x)
         z = Text.blue_text('https://miro.com/\n')
         user.socket.sendall(z)
-
-# refactor to be single function of room creation and default room
-# or separate name creation overall function from default room specifics
-    # def created_room(self, user, room_name):
-    #     exclude = ['general', 'python', 'challenge']
-    #     for room_name in exclude:
-    #         if room_name not in exclude:
-    #             x = Ascii_Banner.cyan_banner(room_name)
-    #             user.socket.sendall(x)
-    #             z = Text.blue_text('https://miro.com/\n')
-    #             user.socket.sendall(z)
-    #         else: 
-    #             continue
-                # pass
 
     # def list_users(self, user):
     #     users = self.room_user_map
@@ -170,13 +152,13 @@ class Hall:
                 if not same_room:
                     if "python" in msg:
                         self.python_room(user)
-                    if "challenge" in msg:
-                        self.challenge_room(user)
-                    if "general" in msg:
+                    elif "general" in msg:
                         self.general_room(user)
-                    # else:
-                    #     x = Ascii_Banner.cyan_banner(room_name)
-                    #     user.socket.sendall(x)
+                    elif "challenge" in msg:
+                        self.challenge_room(user)
+                    else:
+                        x = Ascii_Banner.cyan_banner(room_name)
+                        user.socket.sendall(x)
                     if not room_name in self.rooms: # new room:
                         new_room = Room(room_name)
                         self.rooms[room_name] = new_room
