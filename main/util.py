@@ -235,7 +235,8 @@ class Room:
 
 class User:
     def __init__(self, socket, name = "new"):
-        socket.setblocking(0)
+        # setblocking commented out for testing
+        # socket.setblocking(0)
         self.socket = socket
         self.name = name
 
