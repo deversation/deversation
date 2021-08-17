@@ -1,7 +1,12 @@
 import socket, pdb
 from pyfiglet import Figlet
 from termcolor import colored
-from banner import Ascii_Banner, Text 
+try:
+# test code:
+    from main.banner import Ascii_Banner, Text 
+except:
+# production code:
+    from banner import Ascii_Banner, Text 
 
 MAX_CLIENTS = 30
 PORT = 22222
