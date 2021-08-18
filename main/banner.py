@@ -55,6 +55,11 @@ class Text():
         x = bytes(x, encoding='utf-8')
         return x
 
+    def white_text(msg):
+        x = colored(msg, 'white')
+        x = bytes(x, encoding='utf-8')
+        return x
+
     def red_text(msg):
         x = colored(msg, 'red')
         x = bytes(x, encoding='utf-8')
@@ -67,6 +72,11 @@ class Text():
     
     def blue_text(msg):
         x = colored(msg, 'blue')
+        x = bytes(x, encoding='utf-8')
+        return x
+    
+    def cyan_text(msg):
+        x = colored(msg, 'cyan')
         x = bytes(x, encoding='utf-8')
         return x
     
