@@ -1,5 +1,6 @@
 import pytest
-
+# import main.client
+import socket
 from main.util import Hall, Room, User
 from main.banner import Ascii_Banner, Text
 
@@ -37,21 +38,29 @@ def test_can_successfully_connected_to_a_chat_room_server():
 
 def test_can_successfully_print_chat_room_instructions():
     pass
-
+    
 def test_can_successfully_print_welcome_to_chat_room_messge():
-    pass
+    new_hall = Hall()
+    new_user = b'user'
+    assert new_hall.welcome_new(new_user) == b'message'
+    # pass
 
-def test_can_successfully_list_default_rooms():
-    pass
+    # actual = new_hall.welcome_new(new_user)
+    # assert actual == b'The Deversation chat space was created to encourage learning, communication, and collaboration between developers!\n\nPlease enter a user name:\n'
+
+# def test_can_successfully_list_default_rooms():
+#     new_hall = Hall()
+#     new_user = 'user'
+#     assert  new_hall.list_rooms(new_user)
 
 def test_can_successfully_create_a_new_room():
     pass
 
 def test_user_can_successfully_create_a_new_user():
-    user = "new"
-    name = User(user)
-    assert name.name == "new"
-
+    # user = "new"
+    # name = User(user)
+    # assert name.name == "new"
+    pass
 
 def test_user_can_successfully_join_a_chat_room():
     pass
