@@ -1,6 +1,6 @@
 import socket, pdb
-from pyfiglet import Figlet
-from termcolor import colored
+from challenge import easy_questions
+from ascii_art import bio
 try:
 # test code:
     from main.banner import Ascii_Banner, Text 
@@ -28,18 +28,14 @@ class Hall:
 
     # welcomes new users and prints string(s) in sendall()
     def welcome_new(self, new_user):
-        new_user.socket.sendall(b'This chat space was created to encourage learning, communication, and collaboration between developers.\n\nPlease enter a user name:\n')
-        # new_user.socket.sendall()
-        
-    def create_default_room(self, room_name): # create room instances when first users signs on
-        
-         pass
-    
+        intro = Text.cyan_text('The Deversation chat space was created to encourage learning, communication, and collaboration between developers!\n\nPlease enter a user name:\n')
+        new_user.socket.sendall(intro)
+
     def list_rooms(self, user):
         
         if len(self.rooms) == 0:
-            msg = '\nOops, no active rooms currently. Try creating your own:\n' \
-                + 'Type [/join room_name] to create a room.\n'
+            msg = '\n❗There are currently no active rooms. Try creating or joining a room:\n\n' \
+                + 'Type [/join room_name] to create or join a room.\n'
             user.socket.sendall(msg.encode())
         else:
             msg = 'Listing current rooms...\n'
@@ -50,20 +46,40 @@ class Hall:
     def python_room(self, user):
         x = Ascii_Banner.green_banner('PYTHON CHAT')
         user.socket.sendall(x)
-        z = Text.blue_text('https://www.python.org/\n')
-        user.socket.sendall(z)
-
-    def challenge_room(self, user):
-        x = Ascii_Banner.red_banner('CHALLENGE ACCEPTED!')
-        user.socket.sendall(x)
-        z = Text.blue_text('https://miro.com/\n')
+        desc = Text.green_text('This is the room for all things python\nNew to the language? We\'ve gathered some links to get you started:\n')
+        user.socket.sendall(desc)
+        z = Text.blue_text('https://www.sololearn.com/learning/1073\n' + 'https://careerkarma.com/blog/python-projects-beginners/\n' + 'https://www.python.org/\n\n')
         user.socket.sendall(z)
 
     def general_room(self, user):
         x = Ascii_Banner.yellow_banner('GENERAL CHAT')
         user.socket.sendall(x)
-        z = Text.blue_text('https://miro.com/\n')
+        desc = Text.yellow_text('Tired of all the code speak? Try some human speak instead.\n\n')
+        user.socket.sendall(desc)
+
+    def challenge_room(self, user):
+        x = Ascii_Banner.red_banner('CHALLENGE ACCEPTED!')
+        user.socket.sendall(x)
+        z = Text.blue_text('https://miro.com/\n' + 'https://replit.com/\n\n')
         user.socket.sendall(z)
+        easy_questions(user)
+
+        # difficulty choices:-------------
+        # instructions = b'Instructions:\n'\
+        #     + b'[/easy] for a beginner challenge\n'\
+        #     + b'[/med ] for an intermediate challenge\n'\
+        #     + b'[/hard] for and advanced challenge\n'\
+        #     + b'\n\n'
+        # user.socket.sendall(instructions) 
+        # # print(msg)
+        # if 'easy' in msg:
+        #     print('easy choice')
+        # if 'medium' in msg:
+        #     print('med choice')
+        # if 'hard' in msg:
+        #     print('hard choice')
+        # else:
+        #     print('chooise a valid difficulty')
 
     # def list_users(self, user):
     #     users = self.room_user_map
@@ -91,23 +107,9 @@ class Hall:
             # print(self.rooms.users)
         # user.socket.sendall(x.encode())
     
-    def handle_msg(self, user, msg):
-        
-        def green_banner(msg):
-            f = Figlet(font='standard')
-            x = colored(f.renderText(msg), 'green')
-            x = bytes(x, encoding='utf-8')
-            return x
-        
-            # user.socket.sendall(msg)
-            # print(b"hello!")
-            
-        def instructions(user):
-            # create a function to loop and print instructions to users instead of code below?
-            pass
-
+    def handle_msg(self, user, msg):       
         # instructions variable that gets printed when needed via sendall(instructions)
-        # the b before the string converts the string to bytes, which is what is need when sending data via sockets. 
+        # the b before the string converts the string to bytes, which is what is needed when sending data via sockets. 
         instructions = b'Instructions:\n'\
             + b'[/join python] to enter python chat\n'\
             + b'[/join challenge] to test your knowledge\n'\
@@ -118,14 +120,14 @@ class Hall:
             + b'[/quit] to quit\n' \
             + b'\nPlease enter a command:' \
             + b'\n\n'
-            
              
         #users message that only gets printed to server terminal
         # print(user.name + " says: " + msg) 
         
         #checks for "name:" in msg. This happens when the welcome_new() function gets called for new users. #welcome message to new users
         if "name:" in msg:
-            user.socket.sendall(green_banner('Welcome!\n To\n Deversation\n')) 
+            x = Ascii_Banner.green_banner('Welcome!\n To\n Deversation\n')
+            user.socket.sendall(x)
             # separates users name from prefix of 'name: '
             name = msg.split()[1]
             user.name = name
@@ -161,6 +163,16 @@ class Hall:
                         self.general_room(user)
                     elif "challenge" in msg:
                         self.challenge_room(user)
+                        # difficulty choices --------------
+                        # if 'easy' in msg:
+                        #     print('easy choice')
+                        # elif 'med' in msg:
+                        #     print('med choice')
+                        # elif 'hard' in msg:
+                        #     print('hard choice')
+                        # else:
+                        #     print('chooise a valid difficulty')
+
                     else:
                         x = Ascii_Banner.cyan_banner(room_name)
                         user.socket.sendall(x)
@@ -173,19 +185,18 @@ class Hall:
             else:
                 user.socket.sendall(instructions) # prints instructions to client terminal
 
-
         elif "/list" in msg:
             self.list_rooms(user) #calls list room function
             
-            
         # elif "/users" in msg:
-        #     self.list_users(user) #calls list_users function
-                
+        #     self.list_users(user) #calls list_users function      
 
         elif "/help" in msg:
             user.socket.sendall(instructions) #prints instructions to client terminal
-
         
+        elif '/bio' in msg:
+            bio(user)
+
         elif "/quit" in msg:
             user.socket.sendall(QUIT_STRING.encode()) # removes user from server/application
             self.remove_player(user)
@@ -199,7 +210,7 @@ class Hall:
                 #     + 'Use [<list>] to see available rooms! \n' \
                 #     + 'Use [<join> room_name] to join a room! \n'
                 # user.socket.sendall(msg.encode())
-                z = Text.red_text('\nYou are currently not in any room!')
+                z = Text.white_text('\n❗You are currently not in any room!\n')
                 user.socket.sendall(z)
                 msg = '\nTry a command:\n' \
                     + 'Type [/list] to see available rooms \n' \
@@ -211,7 +222,6 @@ class Hall:
             self.rooms[self.room_user_map[player.name]].remove_player(player)
             del self.room_user_map[player.name]
         print("User: " + player.name + " has left\n")
-        
         
 class Room:
     def __init__(self, room):
@@ -230,7 +240,7 @@ class Room:
 
     def remove_player(self, user): # removes user from room. Calls broadcast() and passes args.
         self.users.remove(user)
-        leave_msg = user.name.encode() + b" has left the room\n"
+        leave_msg = Text.red_text(" has left the room\n")
         self.broadcast(user, leave_msg)
 
 class User:
@@ -240,6 +250,6 @@ class User:
         self.socket = socket
         self.name = name
 
+# fileno() returns the integer file descriptor that is used by the underlying implementation to request I/O operations from the operating system
     def fileno(self):
         return self.socket.fileno()
-        
