@@ -1,6 +1,5 @@
 from re import X
-import select, socket, sys, pickle
-import util
+import select, socket, sys, util
 from banner import Ascii_Banner
 
 READ_BUFFER = 4096
@@ -14,7 +13,9 @@ else:
     server_connection.connect((sys.argv[1], util.PORT))
 
 def prompt():
+    
     print('>', end=' ', flush = True)
+    # run_assistant()
 
 print("\n🟢 Connected to the server\n")
 msg_prefix = ''
@@ -41,8 +42,10 @@ while True:
                         msg_prefix = 'name: '
                     else:
                         msg_prefix = ' '
+                        # run_assistant()
                     prompt()
                     
         else:
             msg = msg_prefix + sys.stdin.readline()
             server_connection.sendall(msg.encode())
+            # run_assistant()

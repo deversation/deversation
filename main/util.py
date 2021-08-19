@@ -1,6 +1,10 @@
-import socket
+import socket, pdb
 from challenge import random_questions
-from ascii_art import bio 
+from ascii_art import bio
+from playsound import playsound as ps
+from assistant import run_assistant
+import assistant
+
 try:
 # test code:
     from main.banner import Ascii_Banner, Text 
@@ -85,10 +89,20 @@ class Hall:
             + b'[/join general] to enter general chat\n'\
             + b'[/join room_name] to join/create/switch to a room\n' \
             + b'[/list] to list all active rooms\n'\
+            + b'[/assistant] to activate ai assistant\n'\
             + b'[/help] to show instructions\n' \
             + b'[/quit] to quit\n' \
             + b'\nPlease enter a command without the brackets:' \
             + b'\n\n'
+        ai_instructions = b'Instructions:\n'\
+            + b'say "python who are you"\n'\
+            + b'say "python search + [keyword]"\n'\
+            + b'say "python play + [keyword]"\n'\
+            + b'say "python tell me a joke"\n'\
+            + b'say "python what time is it"\n'\
+            + b'say "python exit" to exit assistant\n'\
+            + b'\n\n'
+             
         
         if "name:" in msg:
             x = Ascii_Banner.colored_banner('Welcome!\n To\n Deversation\n', 'green')
@@ -136,6 +150,11 @@ class Hall:
         
         elif '/bio' in msg:
             bio(user)
+        
+        elif '/assistant' in msg:
+            user.socket.sendall(b'assistant online...\n')
+            user.socket.sendall(ai_instructions)
+            run_assistant(user)
 
         elif "/quit" in msg:
             user.socket.sendall(QUIT_STRING.encode())
@@ -165,17 +184,20 @@ class Room:
 
     def welcome_new(self, from_user):
         msg = Text.colored_text(from_user.name + " has entered: " + self.room + '!\n', 'green')
+        ps('../sounds/dooropen.wav')
         for user in self.users:
             user.socket.sendall(msg)
     
     def broadcast(self, from_user, msg):
         msg = from_user.name.encode() + b":" + msg
+        ps('../sounds/imsend.wav')
         for user in self.users:
             user.socket.sendall(msg)
 
     def remove_user(self, user):
         self.users.remove(user)
         leave_msg = Text.colored_text(' has left the room\n', 'red')
+        ps('../sounds/doorslam.wav')
         self.broadcast(user, leave_msg)
 
 class User:

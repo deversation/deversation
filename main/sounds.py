@@ -1,5 +1,5 @@
 import speech_recognition as sr
-import webbrowser, time, playsound, os, random
+import webbrowser, time, playsound, os, random, pywhatkit
 from gtts import gTTS, tts
 from time import ctime
 
@@ -42,10 +42,13 @@ def respond(voice_data):
         big_brother_speak("here is what I found for " + search)
     if 'find location' in voice_data:
         location = record_audio('What is the location?')
-        url = 'https://google.nl/maps/place' + location + '/&amp;'
+        url = 'https://google.nl/maps/place/' + location + '/&amp;'
         webbrowser.get().open(url)
         big_brother_speak('Here is the location of ' + location)
-    if 'exit' in voice_data:
+    if 'play' in voice_data:
+        song = record_audio("what artist do you want to play")
+        pywhatkit.playonyt(song)
+    if 'bye' in voice_data:
         exit()
             
 
