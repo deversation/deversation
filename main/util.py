@@ -30,7 +30,7 @@ class Hall:
     def welcome_new(self, new_user):
         intro = Text.cyan_text('The Deversation chat space was created to encourage learning, communication, and collaboration between developers!\n\nPlease enter a user name:\n')
         new_user.socket.sendall(intro)
-    
+
     def list_rooms(self, user):
         
         if len(self.rooms) == 0:
@@ -63,6 +63,7 @@ class Hall:
         z = Text.blue_text('https://miro.com/\n' + 'https://replit.com/\n\n')
         user.socket.sendall(z)
         easy_questions(user)
+
         # difficulty choices:-------------
         # instructions = b'Instructions:\n'\
         #     + b'[/easy] for a beginner challenge\n'\
@@ -249,6 +250,6 @@ class User:
         self.socket = socket
         self.name = name
 
+# fileno() returns the integer file descriptor that is used by the underlying implementation to request I/O operations from the operating system
     def fileno(self):
         return self.socket.fileno()
-        
