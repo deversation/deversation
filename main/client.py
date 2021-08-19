@@ -1,5 +1,7 @@
 from re import X
 import select, socket, sys
+from subprocess import run
+# from assistant import run_assistant
 # banner, pickle
 # from main.util import Room, Hall, User
 import util
@@ -14,10 +16,13 @@ else:
     server_connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_connection.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     server_connection.connect((sys.argv[1], util.PORT))
+    # run_assistant()
     # print(f'System Argv: {sys.argv}\n')
 
 def prompt():
+    
     print('>', end=' ', flush = True)
+    # run_assistant()
 
 
 print("Connected to server\n") #prints to client terminal.
@@ -44,13 +49,17 @@ while True:
                     sys.stdout.write(msg.decode())
                     if 'Please enter a user name:' in msg.decode():
                         msg_prefix = 'name: ' # identifier for name
+                        # run_assistant()
                     else:
                         # new_func("Welcome")
                         msg_prefix = ' '
+                        # run_assistant()
                     prompt()
+                    # run_assistant()
                     # new_func("Welcome")
                     
 
         else:
             msg = msg_prefix + sys.stdin.readline()
             server_connection.sendall(msg.encode())
+            # run_assistant()

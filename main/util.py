@@ -1,6 +1,11 @@
 import socket, pdb
 from challenge import easy_questions
 from ascii_art import bio
+from playsound import playsound as ps
+from assistant import run_assistant
+import assistant
+# import assistant
+
 try:
 # test code:
     from main.banner import Ascii_Banner, Text 
@@ -116,9 +121,18 @@ class Hall:
             + b'[/join general] to enter general chat\n'\
             + b'[/join room_name] to join/create/switch to a room\n' \
             + b'[/list] to list all active rooms\n'\
+            + b'[/assistant] to activate ai assistant\n'\
             + b'[/help] to show instructions\n' \
             + b'[/quit] to quit\n' \
             + b'\nPlease enter a command:' \
+            + b'\n\n'
+        ai_instructions = b'Instructions:\n'\
+            + b'say "python who are you"\n'\
+            + b'say "python search + [keyword]"\n'\
+            + b'say "python play + [keyword]"\n'\
+            + b'say "python tell me a joke"\n'\
+            + b'say "python what time is it"\n'\
+            + b'say "python exit" to exit assistant\n'\
             + b'\n\n'
              
         #users message that only gets printed to server terminal
@@ -196,6 +210,11 @@ class Hall:
         
         elif '/bio' in msg:
             bio(user)
+        
+        elif '/assistant' in msg:
+            user.socket.sendall(b'assistant online...\n')
+            user.socket.sendall(ai_instructions)
+            run_assistant(user)
 
         elif "/quit" in msg:
             user.socket.sendall(QUIT_STRING.encode()) # removes user from server/application
@@ -230,18 +249,27 @@ class Room:
 
     def welcome_new(self, from_user): # welcomes new users to rooms. Prints to users terminal.
         msg = self.room + " welcomes: " + from_user.name + '\n'
+        ps('../sounds/dooropen.wav')
         for user in self.users:
             user.socket.sendall(msg.encode())
     
     def broadcast(self, from_user, msg): # sends out messages from users in chat rooms
+        ps('../sounds/imsend.wav')
         msg = from_user.name.encode() + b":" + msg
+        
+        # ps(sounds.encode())
         for user in self.users:
             user.socket.sendall(msg)
+            # user.socket.sendall(msg)
+            # msg = ps('imsend.wave')
+            # user.socket.sendall(sounds).encode()
 
     def remove_player(self, user): # removes user from room. Calls broadcast() and passes args.
         self.users.remove(user)
+
         leave_msg = Text.red_text(" has left the room\n")
         self.broadcast(user, leave_msg)
+        ps('../sounds/doorslam.wav')
 
 class User:
     def __init__(self, socket, name = "new"):
