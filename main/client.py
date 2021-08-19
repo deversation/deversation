@@ -1,14 +1,5 @@
 from re import X
-<<<<<<< HEAD
-import select, socket, sys
-from subprocess import run
-# from assistant import run_assistant
-# banner, pickle
-# from main.util import Room, Hall, User
-=======
-import select, socket, sys, pickle
->>>>>>> dev
-import util
+import select, socket, sys, util
 from banner import Ascii_Banner
 
 READ_BUFFER = 4096
@@ -20,11 +11,6 @@ else:
     server_connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_connection.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     server_connection.connect((sys.argv[1], util.PORT))
-<<<<<<< HEAD
-    # run_assistant()
-    # print(f'System Argv: {sys.argv}\n')
-=======
->>>>>>> dev
 
 def prompt():
     
@@ -53,21 +39,11 @@ while True:
                 else:
                     sys.stdout.write(msg.decode())
                     if 'Please enter a user name:' in msg.decode():
-<<<<<<< HEAD
-                        msg_prefix = 'name: ' # identifier for name
-                        # run_assistant()
-=======
                         msg_prefix = 'name: '
->>>>>>> dev
                     else:
                         msg_prefix = ' '
                         # run_assistant()
                     prompt()
-<<<<<<< HEAD
-                    # run_assistant()
-                    # new_func("Welcome")
-=======
->>>>>>> dev
                     
         else:
             msg = msg_prefix + sys.stdin.readline()

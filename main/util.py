@@ -1,17 +1,10 @@
-<<<<<<< HEAD
 import socket, pdb
-from challenge import easy_questions
+from challenge import random_questions
 from ascii_art import bio
 from playsound import playsound as ps
 from assistant import run_assistant
 import assistant
-# import assistant
 
-=======
-import socket
-from challenge import random_questions
-from ascii_art import bio 
->>>>>>> dev
 try:
 # test code:
     from main.banner import Ascii_Banner, Text 
@@ -101,7 +94,6 @@ class Hall:
             + b'[/quit] to quit\n' \
             + b'\nPlease enter a command without the brackets:' \
             + b'\n\n'
-<<<<<<< HEAD
         ai_instructions = b'Instructions:\n'\
             + b'say "python who are you"\n'\
             + b'say "python search + [keyword]"\n'\
@@ -111,10 +103,6 @@ class Hall:
             + b'say "python exit" to exit assistant\n'\
             + b'\n\n'
              
-        #users message that only gets printed to server terminal
-        # print(user.name + " says: " + msg) 
-=======
->>>>>>> dev
         
         if "name:" in msg:
             x = Ascii_Banner.colored_banner('Welcome!\n To\n Deversation\n', 'green')
@@ -194,42 +182,23 @@ class Room:
         self.users = []
         self.room = room
 
-<<<<<<< HEAD
-    def welcome_new(self, from_user): # welcomes new users to rooms. Prints to users terminal.
-        msg = self.room + " welcomes: " + from_user.name + '\n'
-        ps('../sounds/dooropen.wav')
-=======
     def welcome_new(self, from_user):
         msg = Text.colored_text(from_user.name + " has entered: " + self.room + '!\n', 'green')
->>>>>>> dev
+        ps('../sounds/dooropen.wav')
         for user in self.users:
             user.socket.sendall(msg)
     
-<<<<<<< HEAD
-    def broadcast(self, from_user, msg): # sends out messages from users in chat rooms
-        ps('../sounds/imsend.wav')
-=======
     def broadcast(self, from_user, msg):
->>>>>>> dev
         msg = from_user.name.encode() + b":" + msg
-        
-        # ps(sounds.encode())
+        ps('../sounds/imsend.wav')
         for user in self.users:
             user.socket.sendall(msg)
-            # user.socket.sendall(msg)
-            # msg = ps('imsend.wave')
-            # user.socket.sendall(sounds).encode()
 
     def remove_user(self, user):
         self.users.remove(user)
-<<<<<<< HEAD
-
-        leave_msg = Text.red_text(" has left the room\n")
-=======
         leave_msg = Text.colored_text(' has left the room\n', 'red')
->>>>>>> dev
-        self.broadcast(user, leave_msg)
         ps('../sounds/doorslam.wav')
+        self.broadcast(user, leave_msg)
 
 class User:
     '''
