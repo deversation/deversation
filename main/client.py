@@ -1,9 +1,7 @@
 from re import X
-import select, socket, sys
-# banner, pickle
-# from main.util import Room, Hall, User
+import select, socket, sys, pickle
 import util
-# from banner import Ascii_Banner as ab
+from banner import Ascii_Banner
 
 READ_BUFFER = 4096
 
@@ -14,43 +12,37 @@ else:
     server_connection = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server_connection.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     server_connection.connect((sys.argv[1], util.PORT))
-    # print(f'System Argv: {sys.argv}\n')
 
 def prompt():
     print('>', end=' ', flush = True)
 
-
-print("Connected to server\n") #prints to client terminal.
+print("\n🟢 Connected to the server\n")
 msg_prefix = ''
 
 socket_list = [sys.stdin, server_connection]
 
 while True:
     read_sockets, write_sockets, error_sockets = select.select(socket_list, [], [])
-    # print(f'Read_sockets: {read_sockets}\n') 
-    # print(f'Write_sockets: {write_sockets}\n')
-    # print(f'Error_sockets: {error_sockets}\n')
+
     for s in read_sockets:
-        if s is server_connection: # incoming message from client(s)
+        if s is server_connection:
             msg = s.recv(READ_BUFFER)
             if not msg:
                 print("Server down!")
                 sys.exit(2)
             else:
                 if msg == util.QUIT_STRING.encode():
-                    sys.stdout.write('Bye\n')
+                    bye = Ascii_Banner.colored_banner('Bye!\n', 'red')
+                    sys.stdout.write(bye.decode())
                     sys.exit(2)
                 else:
                     sys.stdout.write(msg.decode())
                     if 'Please enter a user name:' in msg.decode():
-                        msg_prefix = 'name: ' # identifier for name
+                        msg_prefix = 'name: '
                     else:
-                        # new_func("Welcome")
                         msg_prefix = ' '
                     prompt()
-                    # new_func("Welcome")
                     
-
         else:
             msg = msg_prefix + sys.stdin.readline()
             server_connection.sendall(msg.encode())

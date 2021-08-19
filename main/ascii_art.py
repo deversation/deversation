@@ -1,12 +1,9 @@
-# pillow import
-# pip install pillow
-# poetry add pillow
-# import PIL.Image
-# poetry add climage
 import climage
-# Kite tutorial ASCII IMAGES
-# https://www.youtube.com/watch?v=v_raWlX7tZY&t=150s
+# import PIL.Image
 
+'''
+Converts image files to characters defined in ASCII
+'''
 # ASCII = ['@', '#', 'S', '%', '?', '*', '+', ';', ':', ',', '.' ]
 
 # def resize_img(img, new_width=50):
@@ -43,38 +40,33 @@ import climage
 
 # main()
 
-
-# --------
-# Pixled images to terminal
-# poetry add climage
-# https://github.com/pnappa/CLImage
-
-  
-# # converts the image to print in terminal
-# # inform of ANSI Escape codes
-# # output = climage.convert('assets/harold.jpg')
-# # more detail
-# output = climage.convert('../assets/harold.jpg', is_unicode=True, width=50)
-# print(output)
-
-
-# send txt files to client use read binary mode 'rb'
 def bio(user):
-    output = climage.convert('../assets/harold.jpg', is_unicode=True, width=50)
-    print(output)
+    '''
+    Reads from bio.txt file and sends information to client. Prints images to server.
+    '''
+    output1 = climage.convert('../assets/anthony.jpg', is_unicode=True, width=32)
+    output2 = climage.convert('../assets/tony.jpg', is_unicode=True, width=32)
+    output3 = climage.convert('../assets/wonde.jpg', is_unicode=True, width=32)
+    output4 = climage.convert('../assets/marie.jpg', is_unicode=True, width=32)
+    print(output1)
+    print(output2)
+    print(output3)
+    print(output4)
     with open('../assets/bio.txt', 'rb') as f:
         bio = f.read()
         user.socket.sendall(bio)
 
+
 # image over sockets
 # def bio_img(user):
-#     with open('../assets/harold.jpg', 'rb') as f:
+#     with open('../assets/harold.jpg', 'wb') as f:
 #         bio_img = f.read()
-#     with open 
-#         # output = climage.convert(bio_img, is_unicode=True, width=50)
-#         # print(output)
+#         user.socket.sendall(bio_img)
+    # with open('../assets/harold.jpg', 'wb') as n:
+    #     bio_imgs = n.write()
+    #     user.socket.sendall(bio_imgs)
 
-#         user.socket.sendall(output)
+
     
 
     
