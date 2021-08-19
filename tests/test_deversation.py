@@ -1,19 +1,10 @@
 import pytest
 # import main.client
 import socket
-from main.util import Hall, Room, User
+# from main.client import prompt
+# import main.server
+from main.util import Hall, Room, User, create_socket
 from main.banner import Ascii_Banner, Text
-
-def test_hall():
-    hall = Hall()
-    assert hall
-
-
-def test_banner():
-    msg = 'hello'
-    banner = Ascii_Banner(msg)
-    assert banner
-
 
 # Possible test cases forthe util.py module
 
@@ -26,9 +17,59 @@ def test_can_successfully_print_a_message_banner():
     banner = Ascii_Banner(msg)
     assert banner
 
+def test_green_banner():
+    msg = 'hello'
+    banner= Ascii_Banner.green_banner(msg)
+    assert banner
+
+def test_red_banner():
+    msg = 'hello'
+    banner= Ascii_Banner.red_banner(msg)
+    assert banner
+
+def test_yellow_banner():
+    msg = 'hello'
+    banner= Ascii_Banner.yellow_banner(msg)
+    assert banner
+
+def test_cyan_banner():
+    msg = 'hello'
+    banner= Ascii_Banner.cyan_banner(msg)
+    assert banner
+
 def test_can_successfully_print_text():
     msg = "In a good progress"
     text = Text(msg)
+    assert text
+
+def test_green_text():
+    msg = 'hello'
+    text = Text.green_text(msg)
+    assert text
+
+def test_white_text():
+    msg = 'hello'
+    text = Text.white_text(msg)
+    assert text
+
+def test_red_text():
+    msg = 'hello'
+    text = Text.red_text(msg)
+    assert text
+
+def test_yellow_text():
+    msg = 'hello'
+    text = Text.yellow_text(msg)
+    assert text
+
+def test_blue_text():
+    msg = 'hello'
+    text = Text.blue_text(msg)
+    assert text
+
+def test_cyan_text():
+    msg = 'hello'
+    text = Text.cyan_text(msg)
     assert text
 
 def test_can_successfully_connected_to_a_chat_room_server():
@@ -36,13 +77,42 @@ def test_can_successfully_connected_to_a_chat_room_server():
    room = Room(name)
    assert room.room == "test room"
 
-def test_can_successfully_print_chat_room_instructions():
-    pass
+def test_create_socket():
+    address = ('127.0.0.1', 22222)
+    s = create_socket(address)
+    assert s
     
-def test_can_successfully_print_welcome_to_chat_room_messge():
-    new_hall = Hall()
-    new_user = b'user'
-    assert new_hall.welcome_new(new_user) == b'message'
+def test_create_user():
+    user = 'new'
+    name = User(user)
+    assert name.name == 'new'
+
+# def test_fileno():
+    # inst = User.fileno(self)
+    # file = 4
+    # assert inst == file
+
+def test_welcome_new(fix_user):
+    out = Hall.welcome_new(fix_user)
+    # out, err = capsys.readouterr()
+    assert out == 'message'
+    # assert err == ''
+
+# def test_prompt():
+#     prompt = main.client.prompt()
+#     assert prompt =='>'
+
+def test_list_rooms():
+    pass
+
+# def test_python_room():
+    
+#     inst = Hall.python_room(user)
+    
+# def test_can_successfully_print_welcome_to_chat_room_messge():
+#     new_hall = Hall()
+#     new_user = b'user'
+#     assert new_hall.welcome_new(new_user) == b'message'
     # pass
 
     # actual = new_hall.welcome_new(new_user)
@@ -53,47 +123,48 @@ def test_can_successfully_print_welcome_to_chat_room_messge():
 #     new_user = 'user'
 #     assert  new_hall.list_rooms(new_user)
 
-def test_can_successfully_create_a_new_room():
-    pass
+# def test_handle_msg():
+#     socket = 
+#     user = 'new' 
+#     msg = 'name:'
+#     socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#     hall = Hall.handle_msg(user, msg)
+#     user.socket.sendall(instructions) 
 
-def test_user_can_successfully_create_a_new_user():
-    # user = "new"
-    # name = User(user)
-    # assert name.name == "new"
-    pass
-
-def test_user_can_successfully_join_a_chat_room():
-    pass
-
-def test_multiple_user_can_successfully_join_a_chat_room():
-    pass
-
-def test_messages_can_successfully_displayed_for_all_users_in_a_chat_room():
-    pass
-
-def test_user_can_successfully_left_a_chat_room():
-    pass
+# def test_fileno():
+#     fileno = User.fileno()
+#     assert fileno
 
 
-# Possible test cases forthe server.py module
 
-def test_server_is_successfully_listening_at_specific_port():
-    pass
+# @pytest.fixture
+# def serve():
+#     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+# s.bind(('0.0.0.0', 8080))
+# s.listen(5)
+# @pytest.fixture
+# def new_user():
+#     new_user = User()
 
-# Possible test cases forthe client.py module
+# class Test_Hall():
+#         def test_welcome_new(self, fix_user, capsys):
+#             fix_user.welcome_new('me')
+#             out, err = capsys.readouterr()
+#             assert out == 'This'
+#             assert err == ''
 
-def test_can_successfully_prompt_a_user_to_enter_user_name():
-    pass
+# @pytest.fixture
+# def fix_user():
+#     user = 'new'
+#     name = User(user)
+#     return name
 
-def test_user_can_successfully_enter_a_user_name():
-    pass
+# @pytest.fixture
+# def fix_user():
+#     user = User()
+#     user.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+#     user.name = 'new'
+#     return user
 
-def test_can_successfully_concatenate_and_display_welcome_message_with_a_user_name():
-    pass
 
-def test_can_successfully_print_a_goodbye_massage_when_user_quits():
-    pass
-
-def test_can_successfully_print_an_error_massage_when_server_is_down():
-    pass
 

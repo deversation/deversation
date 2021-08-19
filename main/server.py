@@ -33,7 +33,6 @@ while True:
             new_user = User(new_socket)
             connection_list.append(new_user)
             hall.welcome_new(new_user)
-             
             
             # new_room.append(new_user)
             # new_room('room_name:', 'Dev Talk')
