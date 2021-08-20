@@ -66,7 +66,7 @@ class Hall:
         user.socket.sendall(z)
 
     def general_room(self, user):
-        x = Ascii_Banner.colored_banner('GENERAL CHAT', 'yellow')
+        x = Ascii_Banner.colored_banner('GENERAL', 'yellow')
         user.socket.sendall(x)
         desc = Text.colored_text('🍕\n\nTired of all the code speak? Try some human speak instead.\n\n', 'yellow')
         user.socket.sendall(desc)
