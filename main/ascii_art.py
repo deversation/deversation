@@ -44,10 +44,10 @@ def bio(user):
     '''
     Reads from bio.txt file and sends information to client. Prints images to server.
     '''
-    output1 = climage.convert('../assets/anthony.jpg', is_unicode=True, width=32)
-    output2 = climage.convert('../assets/tony.jpg', is_unicode=True, width=32)
-    output3 = climage.convert('../assets/wonde.jpg', is_unicode=True, width=32)
-    output4 = climage.convert('../assets/marie.jpg', is_unicode=True, width=32)
+    output1 = climage.convert('../assets/anthony.jpg', is_unicode=True, width=20)
+    output2 = climage.convert('../assets/tony.jpg', is_unicode=True, width=20)
+    output3 = climage.convert('../assets/wonde.jpg', is_unicode=True, width=20)
+    output4 = climage.convert('../assets/marie.jpg', is_unicode=True, width=20)
     print(output1)
     print(output2)
     print(output3)

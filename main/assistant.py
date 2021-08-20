@@ -14,7 +14,7 @@ def talk(text):
 
 def run_assistant(user):
     listening = True
-    
+
     while listening:
         try:
             with sr.Microphone() as source:
@@ -56,7 +56,7 @@ def run_assistant(user):
                 listening = False
                 
             else:
-                talk('I do not understand. Please say the command again')
+                 talk('I do not understand. Please say the command again')
 
         except:
             pass

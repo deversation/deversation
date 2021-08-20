@@ -20,6 +20,14 @@ Welcome to the Deversation app. This is a terminal based chat room for developer
     - Client Side: run `client.py 127.0.0.1`
 4. Follow client side prompts in terminal
 
+## Getting PyAudio working:
+
+- Currently, you can't use pyaudio in a WSL without some serious work-arounds.
+- Use python 3.6.9 or lower if you don't want to deal with installing the correct wheels
+- [Istallation for Mac and Windows](https://abhgog.gitbooks.io/pyaudio-manual/content/installation.html)
+- [Pyaudio bindings for PortAudio Libaray](https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyaudio)
+
+
 ### Project Management
 
 Project board managed on [Trello](https://trello.com/b/ao0jwJCN/deversation)
@@ -32,11 +40,13 @@ Project board managed on [Trello](https://trello.com/b/ao0jwJCN/deversation)
 
 ### Collab & Credits
 
-[xysun](https://github.com/xysun/pychat) : used as a starter reference  
-
-[NeuralNine](https://www.youtube.com/watch?v=9GJ6XeB-vMg)  
+[NeuralNine](https://www.youtube.com/watch?v=9GJ6XeB-vMg)
+[NeuralNine](https://www.youtube.com/watch?v=3UOyky9sEQY)
+[NeuralNine](https://www.youtube.com/watch?v=SXsyLdKkKX0)
+[Traversy Media](https://www.youtube.com/watch?v=x8xjj6cR9Nc)
+[xysun](https://github.com/xysun/pychat)
 [Dev.to](https://dev.to/kalebu/how-to-make-cli-chat-application-in-python-58fb)  
-[Termcolor & Pyfiglet](https://towardsdatascience.com/prettify-your-terminal-text-with-termcolor-and-pyfiglet-880de83fda6b)  
+[Termcolor & Pyfiglet](https://towardsdatascience.com/prettify-your-terminal-text-with-termcolor-and-pyfiglet-880de83fda6b)
 [Stack Abuse](https://stackabuse.com/spelling-correction-in-python-with-textblob/)  
 [Real Python](https://realpython.com/python-speech-recognition/)  
 [Geeks for Geeks](https://www.geeksforgeeks.org/python-exit-commands-quit-exit-sys-exit-and-os-_exit/)  
